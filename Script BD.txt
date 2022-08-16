@@ -1,0 +1,146 @@
+drop database avance3;
+
+create database avance3;
+use avance3;
+
+create table Paciente ( 
+cedula varchar(20),
+nombre_p varchar(30),
+edad int,
+tipo_sangre varchar(30),
+genero varchar(15),
+numero_telefono int,
+correo_electronico varchar(30),
+sintomas varchar(120),
+direccion varchar(100),
+PRIMARY KEY (cedula)
+);
+
+create table Medico (
+id_medico varchar(20),
+nombre_m varchar(30),
+edad int, 
+grado varchar(25),
+postgrado varchar(25),
+PRIMARY KEY (id_medico)
+);
+
+create table Cita (
+cod_cita int,
+fecha_asig varchar(20),
+fecha_realiz varchar(20),
+hora varchar (20),
+id_medico varchar(20),
+cedula varchar(20),
+FOREIGN KEY (id_medico) REFERENCES Medico (id_medico) ,
+FOREIGN KEY (cedula) REFERENCES Paciente (cedula) ,
+PRIMARY KEY (cod_cita)
+);
+
+create table Diagnostico (
+num_diagn varchar(10),
+estado varchar(10),
+alergias varchar(90),
+dolencias varchar(60),
+infecciones varchar(60),
+fiebre varchar(2),
+presion varchar(10),
+peso varchar(10),
+cedula varchar(20),
+id_medico varchar(20),
+FOREIGN KEY (id_medico) REFERENCES Medico (id_medico) ,
+FOREIGN KEY (cedula) REFERENCES Paciente (cedula) ,
+PRIMARY KEY (num_diagn)
+);
+
+create table Medicamento (
+nombre varchar(100),
+codigo_med varchar(10),
+id_farmacia int,
+gramaje varchar(100),
+fecha_cad varchar(20),
+num_diagn varchar(10),
+cedula varchar(20),
+id_medico varchar(20),
+FOREIGN KEY (num_diagn) REFERENCES Diagnostico (num_diagn) ,
+PRIMARY KEY (codigo_med),
+FOREIGN KEY (cedula) REFERENCES Paciente(cedula),
+FOREIGN KEY(id_farmacia) REFERENCES Farmacia(id_farmacia),
+foreign key (id_medico) references Medico(id_medico)
+);
+
+create table Farmacia (
+id_farmacia int,
+id_medico varchar(20),
+stock varchar(100),
+FOREIGN KEY (id_medico) REFERENCES Medico (id_medico) ON DELETE CASCADE,
+PRIMARY KEY (id_farmacia)
+);
+
+insert into Paciente (cedula,nombre_p,edad,tipo_sangre,genero,numero_telefono,correo_electronico,sintomas,direccion) values("1069385472","Carlos",23,"o+","M",1475281603,"CarlosPerez@gmail.com","Fiebre","Ceibos");
+insert into Paciente (cedula,nombre_p,edad,tipo_sangre,genero,numero_telefono,correo_electronico,sintomas,direccion) values("7013489652","Maria",12,"oh-","F",1274851306,"MariMar@outlook.com","Vómito","Acasias");
+insert into Paciente (cedula,nombre_p,edad,tipo_sangre,genero,numero_telefono,correo_electronico,sintomas,direccion) values("1568279304","Alejandra",66,"o-","F",1564803972,"Alesuarez@outlook.com","Dolor de cabeza","Ceibos");
+insert into Paciente (cedula,nombre_p,edad,tipo_sangre,genero,numero_telefono,correo_electronico,sintomas,direccion) values("1354897206","Arnold",34,"o+","M",1286413075,"Agomez@yahoo.es","Fiebre","Acasias");
+insert into Paciente (cedula,nombre_p,edad,tipo_sangre,genero,numero_telefono,correo_electronico,sintomas,direccion) values("9082371654","Pedro",21,"o-","M",1540897623,"PPalacios@gmail.com","Dolor de cabeza","Alborada"); 
+insert into Paciente (cedula,nombre_p,edad,tipo_sangre,genero,numero_telefono,correo_electronico,sintomas,direccion) values("8706253194","Domenica",65,"o+","F",1923561084,"Domeparrales@gmail.com","Vómito","Ceibos");
+insert into Paciente (cedula,nombre_p,edad,tipo_sangre,genero,numero_telefono,correo_electronico,sintomas,direccion) values("5732948601","Karina",15,"o-","F",1260495783,"VeroZambrano@yahoo.es","Fiebre","Acasias");
+insert into Paciente (cedula,nombre_p,edad,tipo_sangre,genero,numero_telefono,correo_electronico,sintomas,direccion) values("6250718439","José",2,"o+","M",0951922194,"Jbaidalarteaga@gmail.com","Fiebre","Samborondón");
+insert into Paciente (cedula,nombre_p,edad,tipo_sangre,genero,numero_telefono,correo_electronico,sintomas,direccion) values("2850174396","Isabella",4,"o+","F",0406572831,"IsaBarahonaArt@gmail.com","Fiebre","Samborondón");
+insert into Paciente (cedula,nombre_p,edad,tipo_sangre,genero,numero_telefono,correo_electronico,sintomas,direccion) values("2839109829","Karely",55,"o+","F",932456739,"Kruiz@gmail.com","Fiebre","Samborondón");
+
+insert into Cita (cedula,id_medico,cod_cita,fecha_asig,fecha_realiz,hora) values("1069385472","3791085642",53617,'23-03-2023','30-03-2023','12:10:00');
+insert into Cita (cedula,id_medico,cod_cita,fecha_asig,fecha_realiz,hora) values("7013489652","8940253819",54656,'22-04-2023','28-04-2023','13:45:00');
+insert into Cita (cedula,id_medico,cod_cita,fecha_asig,fecha_realiz,hora) values("1568279304","8467109284",45321,'11-08-2023','22-08-2023','14:00:00');
+insert into Cita (cedula,id_medico,cod_cita,fecha_asig,fecha_realiz,hora) values("1354897206","9874671093",67482,'19-05-2023','29-05-2023','08:00:00');
+insert into Cita (cedula,id_medico,cod_cita,fecha_asig,fecha_realiz,hora) values("9082371654","9874901923",74929,'16-05-2023','30-05-2023','08:00:00');
+insert into Cita (cedula,id_medico,cod_cita,fecha_asig,fecha_realiz,hora) values("8706253194","0984710298",73895,'03-012-2023','05-12-2023','09:30:00');
+insert into Cita (cedula,id_medico,cod_cita,fecha_asig,fecha_realiz,hora) values("5732948601","0984090019",36471,'01-02-2023','11-02-2023','11:30:00');
+insert into Cita (cedula,id_medico,cod_cita,fecha_asig,fecha_realiz,hora) values("6250718439","0937847100",37581,'09-04-2023','19-04-2023','11:00:00');
+insert into Cita (cedula,id_medico,cod_cita,fecha_asig,fecha_realiz,hora) values("2850174396","0944322299",38476,'04-06-2023','14-06-2023','12:00:00');
+insert into Cita (cedula,id_medico,cod_cita,fecha_asig,fecha_realiz,hora) values("2839109829","0000123778",98501,'01-01-2023','11-01-2023','15:00:00');
+
+insert into Medico values("3791085642","Raúl",32,"Si","Si");
+insert into Medico values("8940253819","Josué",34,"Si","No");
+insert into Medico values("8467109284","Maria",40,"Si","Si");
+insert into Medico values("9874671093","José",32,"Si","Si");
+insert into Medico values("9874901923","Marco",55,"Si","Si");
+insert into Medico values("0984710298","Pablo",43,"Si","Si");
+insert into Medico values("0984090019","Erika",45,"Si","Si");
+insert into Medico values("0937847100","Ricardo",41,"Si","Si");
+insert into Medico values("0944322299","Kiara",29,"Si","No");
+insert into Medico values("0000123778","Domenique",32,"Si","No");
+
+
+insert into Farmacia (id_medico,id_farmacia,stock) values("3791085642",10923,"100 unidades");
+insert into Farmacia (id_medico,id_farmacia,stock) values("8940253819",10378,"50 unidades");
+insert into Farmacia (id_medico,id_farmacia,stock) values("8467109284",10452,"75 unidades");
+insert into Farmacia (id_medico,id_farmacia,stock) values("9874671093",10132,"80 unidades");
+insert into Farmacia (id_medico,id_farmacia,stock) values("9874901923",10328,"90 unidades");
+insert into Farmacia (id_medico,id_farmacia,stock) values("0984710298",10829,"20 unidades");
+insert into Farmacia (id_medico,id_farmacia,stock) values("0984090019",10389,"10 unidades");
+insert into Farmacia (id_medico,id_farmacia,stock) values("0937847100",10386,"100 unidades");
+insert into Farmacia (id_medico,id_farmacia,stock) values("0944322299",10382,"200 unidades");
+insert into Farmacia (id_medico,id_farmacia,stock) values("0000123778",10039,"80 unidades");
+
+
+insert into Diagnostico (num_diagn,estado,alergias,dolencias,infecciones,fiebre,presion,peso,cedula,id_medico) values("0000234758","Grave","Amoxicilina","Dolor de cabeza","ninguno","no","alta","65kg","1069385472","3791085642");
+insert into Diagnostico (num_diagn,estado,alergias,dolencias,infecciones,fiebre,presion,peso,cedula,id_medico) values("0000483902","Sano","ninguno","ninguno","ninguno","no","normal","70kg","7013489652","8940253819");
+insert into Diagnostico (num_diagn,estado,alergias,dolencias,infecciones,fiebre,presion,peso,cedula,id_medico) values("0000398100","Sano","ninguno","ninguno","ninguno","no","normal","80kg","1568279304","8467109284");
+insert into Diagnostico (num_diagn,estado,alergias,dolencias,infecciones,fiebre,presion,peso,cedula,id_medico) values("0000928333","Grave","Penicilina","Dolor de estómago","ninguno","si","alta","75kg","1354897206","9874671093");
+insert into Diagnostico (num_diagn,estado,alergias,dolencias,infecciones,fiebre,presion,peso,cedula,id_medico) values("0000938271","Estable","ninguno","Dolor de cabeza","ninguno","si","baja","85kg","9082371654","9874901923");
+insert into Diagnostico (num_diagn,estado,alergias,dolencias,infecciones,fiebre,presion,peso,cedula,id_medico) values("0000290356","Grave","ninguno","Dolor de estómago","ninguno","si","baja","75kg","8706253194","0984710298");
+insert into Diagnostico (num_diagn,estado,alergias,dolencias,infecciones,fiebre,presion,peso,cedula,id_medico) values("0000930293","Sano","ninguno","ninguno","ninguno","no","alta","65kg","5732948601","0984090019");
+insert into Diagnostico (num_diagn,estado,alergias,dolencias,infecciones,fiebre,presion,peso,cedula,id_medico) values("0000234760","Estable","Amoxicilina","Dolor de cabeza","si","no","alta","100kg","6250718439","0937847100");
+insert into Diagnostico (num_diagn,estado,alergias,dolencias,infecciones,fiebre,presion,peso,cedula,id_medico) values("0000039422","Grave","Penicilina","Dolor de estómago","ninguno","si","alta","65kg","2850174396","0944322299");
+insert into Diagnostico (num_diagn,estado,alergias,dolencias,infecciones,fiebre,presion,peso,cedula,id_medico) values("0000093611","Sano","ninguno","ninguno","ninguno","no","normal","90kg","2839109829","0000123778");
+
+insert into Medicamento(nombre,codigo_med,id_farmacia,gramaje,fecha_cad,num_diagn,cedula) values("Penicilina","120",10923,"2 dosis",'30-03-2030',"0000234758","1069385472");
+insert into Medicamento(nombre,codigo_med,id_farmacia,gramaje,fecha_cad,num_diagn,cedula) values("Tempra","121",10378,"1 dosis",'30-03-2030',"0000483902","7013489652");
+insert into Medicamento(nombre,codigo_med,id_farmacia,gramaje,fecha_cad,num_diagn,cedula) values("Apronax","122",10452,"1 dosis",'30-03-2030',"0000398100","1568279304");
+insert into Medicamento(nombre,codigo_med,id_farmacia,gramaje,fecha_cad,num_diagn,cedula) values("Dulcolax","123",10132,"1 dosis",'30-03-2035',"0000928333","1354897206");
+insert into Medicamento(nombre,codigo_med,id_farmacia,gramaje,fecha_cad,num_diagn,cedula) values("Midorixina","124",10328,"1 dosis",'30-03-2035',"0000938271","9082371654");
+insert into Medicamento(nombre,codigo_med,id_farmacia,gramaje,fecha_cad,num_diagn,cedula) values("Femen","125",10829,"2 dosis",'30-03-2025',"0000290356","8706253194");
+insert into Medicamento(nombre,codigo_med,id_farmacia,gramaje,fecha_cad,num_diagn,cedula) values("Pedyalyte","126",10389,"1 dosis",'30-03-2025',"0000930293","5732948601");
+insert into Medicamento(nombre,codigo_med,id_farmacia,gramaje,fecha_cad,num_diagn,cedula) values("Lemonflu","127",10386,"2 dosis",'30-03-2035',"0000234758","6250718439");
+insert into Medicamento(nombre,codigo_med,id_farmacia,gramaje,fecha_cad,num_diagn,cedula) values("Flumosil","128",10382,"1 dosis",'30-03-2035',"0000039422","2850174396");
+insert into Medicamento(nombre,codigo_med,id_farmacia,gramaje,fecha_cad,num_diagn,cedula) values("Afrin","129",10039,"1 dosis",'30-03-2035',"0000093611","2839109829");
